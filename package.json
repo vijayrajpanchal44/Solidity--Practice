@@ -26,6 +26,7 @@
     "@openzeppelin/test-helpers": "^0.5.16",
     "chai": "^4.3.6",
     "dotenv": "^16.0.3",
-    "mocha": "^10.1.0"
+    "mocha": "^10.1.0",
+    "solc": "^0.8.17"
   }
 }
