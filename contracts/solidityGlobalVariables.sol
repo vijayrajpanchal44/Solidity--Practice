@@ -12,7 +12,7 @@ import "./abiEncodeDecode.sol";
 
 contract solidityGlobalVariables {
     /**
-     * @notice  hash of the given block when blocknumber is one of the 256 most recent blocks; 
+     * @notice  Hash of the given block when blocknumber is one of the 256 most recent blocks; 
      * otherwise returns zero
      * @dev Can not generate hash of current block.
      * @return Block hash in bytes
