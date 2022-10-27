@@ -1,5 +1,5 @@
 # Units and Globally Available Variables - Solidity
-
+There are special variables and functions which always exist in the global namespace and are mainly used to provide information about the blockchain or are general-use utility functions.
 ## Special Variables and Functions
 
 | No. | **Status** |     **Global Variables**    | **Return Type** |
@@ -35,14 +35,14 @@
 
 | No. | **Status** |            **Global Variables**            |   **Return Type**  |
 |-----|:----------:|:------------------------------------------:|:------------------:|
-|  22 |    Done    | <address>.balance                          | uint256            |
-|  23 |    Done    | <address>.code                             | bytes memory       |
-|  24 |    Done    | <address>.codehash                         | bytes32            |
-|  25 |    Done    | <address payable>.transfer(uint256 amount) | uint256 amount     |
-|  26 |    Done    | <address payable>.send(uint256 amount)     | bool               |
-|  27 |    Done    | <address>.call(bytes memory)               | bool, bytes memory |
-|  28 |    Done    | <address>.delegatecall(bytes memory)       | bool, bytes memory |
-|  29 |    Done    | <address>.staticcall(bytes memory)         | bool, bytes memory |
+|  22 |    Done    | (address).balance                          | uint256            |
+|  23 |    Done    | (address).code                             | bytes memory       |
+|  24 |    Done    | (address).codehash                         | bytes32            |
+|  25 |    Done    | (address payable).transfer(uint256 amount) | uint256 amount     |
+|  26 |    Done    | (address payable).send(uint256 amount)     | bool               |
+|  27 |    Done    | (address).call(bytes memory)               | bool, bytes memory |
+|  28 |    Done    | (address).delegatecall(bytes memory)       | bool, bytes memory |
+|  29 |    Done    | (address).staticcall(bytes memory)         | bool, bytes memory |
 
 ## Type Information
 
@@ -59,14 +59,14 @@
 
 | No. | **Status** |                    **Global Variables**                    | **Return Type** |
 |-----|:----------:|:----------------------------------------------------------:|:---------------:|
-|  36 |   Working  | bytes.concat(...)                                          | bytes memory    |
-|  37 |   Working  | string.concat(...)                                         | string memory   |
-|  38 |   Working  | addmod(uint x, uint y, uint k)                             | uint            |
-|  39 |   Working  | mulmod(uint x, uint y, uint k)                             | uint            |
-|  40 |   Working  | keccak256(bytes memory)                                    | bytes32         |
-|  40 |   Working  | sha256(bytes memory)                                       | bytes32         |
-|  42 |   Working  | ripemd160(bytes memory)                                    | bytes20         |
-|  43 |   Working  | ecrecover(bytes32 hash, uint8 v, <br>bytes32 r, bytes32 s) | address         |
+|  36 |   Done     | bytes.concat(...)                                          | bytes memory    |
+|  37 |   Done     | string.concat(...)                                         | string memory   |
+|  38 |   Done     | addmod(uint x, uint y, uint k)                             | uint            |
+|  39 |   Done     | mulmod(uint x, uint y, uint k)                             | uint            |
+|  40 |   Done     | keccak256(bytes memory)                                    | bytes32         |
+|  40 |   Done     | sha256(bytes memory)                                       | bytes32         |
+|  42 |   Done     | ripemd160(bytes memory)                                    | bytes20         |
+|  43 |   Done     | ecrecover(bytes32 hash, uint8 v, <br>bytes32 r, bytes32 s) | address         |
 
 ## How can I use it?
 

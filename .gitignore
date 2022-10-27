@@ -8,7 +8,6 @@ typechain-types
 #Hardhat files
 cache
 artifacts
-scripts
 
 contracts/.deps
 contracts/artifacts
