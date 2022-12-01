@@ -13,11 +13,11 @@ contract abiEncodeDecode {
     /**
     * @notice ABI-encodes the given arguments
     * @param name any string 
-    * @param b integer data in array format
-    * @return encoded data
+    * @param nums integer data in array format
+    * @return encodes data in bytes format
     */
-    function abiEncode(string memory name, uint[2] memory b) public pure returns (bytes memory) {
-        return abi.encode(name, b);
+    function abiEncode(string memory name, uint[2] memory nums) public pure returns (bytes memory) {
+        return abi.encode(name, nums);
     }
 
     /**
@@ -36,7 +36,24 @@ contract abiEncodeDecode {
      * @return encoded data
      */
     function abiEncodePacked(bytes memory name, uint256 num) public pure returns (bytes memory) {
-        return abi.encodePacked(name, num);
+        return abi.encodePacked(name, num);   //@audit -collision
+    }
+
+    /**
+     * @notice  ABI-encodes the given arguments starting from the second and prepends 
+     * the given four-byte selector
+     * @notice Typo is not checked - "transfer(address, uint)"
+     * @dev by this function we can call transfer function of erc20 tokens
+     * @param to address of where we wants to send erc20
+     * @param amount amount of erc20 token  
+     * @return encoded data
+     */
+    function encodeWithSelector(address to, uint amount)    //@audit multisig wallet
+        external
+        pure
+        returns (bytes memory)
+    {
+        return abi.encodeWithSelector(IERC20.transfer.selector, to, amount);
     }
 
     /**
@@ -51,26 +68,8 @@ contract abiEncodeDecode {
         external
         pure
         returns (bytes memory)
-    {
-        
+    {        
         return abi.encodeWithSignature("transfer(address,uint256)", to, amount);
-    }
-
-    /**
-     * @notice  ABI-encodes the given arguments starting from the second and prepends 
-     * the given four-byte selector
-     * @notice Typo is not checked - "transfer(address, uint)"
-     * @dev by this function we can call transfer function of erc20 tokens
-     * @param to address of where we wants to send erc20
-     * @param amount amount of erc20 token  
-     * @return encoded data
-     */
-    function encodeWithSelector(address to, uint amount)
-        external
-        pure
-        returns (bytes memory)
-    {
-        return abi.encodeWithSelector(IERC20.transfer.selector, to, amount);
     }
 
     /**

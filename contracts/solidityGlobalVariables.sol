@@ -1,7 +1,7 @@
-
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.16;
 import "./abiEncodeDecode.sol";
+
 /**
  * @title Solidity Global variables
  * @author Vijay Raj Panchal
@@ -9,20 +9,21 @@ import "./abiEncodeDecode.sol";
  * @dev All function calls are currently implemented without side effects
  */
 
-
 contract solidityGlobalVariables {
     /**
-     * @notice  Hash of the given block when blocknumber is one of the 256 most recent blocks; 
+     * @notice  Hash of the given block when blocknumber is one of the 256 most recent blocks;
      * otherwise returns zero
+     * @notice The function blockhash was previously known as block.blockhash, which was deprecated
+     * in version 0.4.22 and removed in version 0.5.0.
      * @dev Can not generate hash of current block.
      * @return Block hash in bytes
      */
     function blockhashFunc() public view returns (bytes32) {
-        return blockhash(currentBlockNumber()-1);
+        return blockhash(currentBlockNumber() - 1);
     }
 
     /**
-     * @notice This function will return current block number. 
+     * @notice This function will return current block number.
      * @return Current Block number
      */
     function currentBlockNumber() public view returns (uint256) {
@@ -40,7 +41,7 @@ contract solidityGlobalVariables {
     }
 
     /**
-     * @notice  The chain ID is a property of the chain managed by the node. 
+     * @notice  The chain ID is a property of the chain managed by the node.
      * It is used for replay protection of transactions.
      * @return Current working chain ID.
      */
@@ -57,7 +58,7 @@ contract solidityGlobalVariables {
     }
 
     /**
-     * @notice  The gas limit of a block defines the maximum amount of gas that all 
+     * @notice  The gas limit of a block defines the maximum amount of gas that all
      * the transactions inside the block are allowed to consume
      * @return current block gaslimit
      */
@@ -81,7 +82,7 @@ contract solidityGlobalVariables {
     }
 
     /**
-     * @notice The function gasleft was previously known as msg.gas, 
+     * @notice The function gasleft was previously known as msg.gas,
      * which was deprecated in version 0.4.21 and removed in version 0.5.0.
      * @return remaining gas of a block.
      */
@@ -126,7 +127,7 @@ contract solidityGlobalVariables {
      */
     function transactionSender() public view returns (address) {
         return tx.origin;
-    }    
+    }
 
     /**
      * @notice It can be used for generating hash of string data type using keccak256 algorithm
@@ -134,9 +135,13 @@ contract solidityGlobalVariables {
      * @param data can pass a string
      * @return return hash of passed data
      */
-    function computeKeccak256(string memory data) public pure returns (bytes32) {
+    function computeKeccak256(string memory data)
+        public
+        pure
+        returns (bytes32)
+    {
         return keccak256(bytes(data));
-    }  
+    }
 
     /**
      * @notice Recover address associated with the public key from elliptic curve signature,
@@ -147,52 +152,46 @@ contract solidityGlobalVariables {
      * @param v final 1 byte of signature
      * @return returns an address, and not an address payable.
      */
-    function ecRecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) public pure returns (address) {
-        return ecrecover( hash,  v,  r,  s);
-    } 
+    function ecRecover(
+        bytes32 hash,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) public pure returns (address) {
+        return ecrecover(hash, v, r, s);
+    }
 
     /**
      * @notice  Destroy the current contract, sending its funds to the given Address and end execution.
-     * @dev the contract is only really destroyed at the end of the transaction and revert s might 
+     * @dev the contract is only really destroyed at the end of the transaction and revert s might
      * “undo” the destruction.
      */
     function selfDestruct(address payable recipient) public {
         selfdestruct(recipient);
-    } 
+    }
 
     /**
-     * @param addr address whose balance we wants to know 
+     * @param addr address whose balance we wants to know
      * @return balance of the Address in Wei
      */
     function balanceOfaddr(address addr) public view returns (uint256) {
-        return addr.balance;        
+        return addr.balance;
     }
 
-
     /**
-     * @param addr contract address whose code we wants to know 
+     * @param addr contract address whose code we wants to know
      * @return code in bytes format
      */
-    function codeOfAddress(address addr) public view  returns (bytes memory) {
-        return addr.code;        //@audit working?
+    function codeOfAddress(address addr) public view returns (bytes memory) {
+        return addr.code; //@audit working?
     }
-    
+
     /**
-     * @param addr contract address whose codehash we wants to know 
+     * @param addr contract address whose codehash we wants to know
      * @return the codehash of the Address
      */
     function codehashOfAddress(address addr) public view returns (bytes32) {
-        return addr.codehash;       
-    }
-
-    /**
-     * @notice Creation code, is runtime code plus an initialization process.
-     * @dev type(X) = X can be either a contract or an integer type
-     * @return creation code  of abiEncodeDecode contract
-     */
-    function creationCode() public pure returns (bytes memory) {
-        bytes memory bytecode = type(abiEncodeDecode).creationCode;      
-        return bytecode; 
+        return addr.codehash;
     }
 
     /**
@@ -201,14 +200,24 @@ contract solidityGlobalVariables {
      * @return runtime code of abiEncodeDecode contract
      */
     function runtimeCode() public pure returns (bytes memory) {
-        return type(abiEncodeDecode).runtimeCode;      
+        return type(abiEncodeDecode).runtimeCode;
+    }
+
+    /**
+     * @notice Creation code, is runtime code plus an initialization process.
+     * @dev type(X) = X can be either a contract or an integer type
+     * @return creation code  of abiEncodeDecode contract
+     */
+    function creationCode() public pure returns (bytes memory) {
+        bytes memory bytecode = type(abiEncodeDecode).creationCode;
+        return bytecode;
     }
 
     /**
      * @dev type(X) = X can be inbuilt datatype
      * @return return The smallest value representable by type
      */
-    function minValue() public pure returns(uint256){
+    function minValue() public pure returns (uint256) {
         return type(uint256).min;
     }
 
@@ -216,8 +225,7 @@ contract solidityGlobalVariables {
      * @dev type(X) = X can be inbuilt datatype
      * @return return The largest value representable by type
      */
-    function maxValue() public pure returns(uint256){
+    function maxValue() public pure returns (uint256) {
         return type(uint256).max;
     }
 }
-
